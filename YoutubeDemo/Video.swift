@@ -7,3 +7,12 @@
 //
 
 import Foundation
+
+struct Video {
+    var thumbnailImageName: String?
+    var title: String?
+    var numberOfViews: NSNumber?
+    var updateDate: Date?
+    
+    var channel: Channel?
+}

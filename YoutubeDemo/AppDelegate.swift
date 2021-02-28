@@ -15,7 +15,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.makeKeyAndVisible()
+        
+        let layout = UICollectionViewFlowLayout()
+        let navController = BaseNavigationController(rootViewController: HomeViewController(collectionViewLayout: layout))
+        
+        navController.navigationBar.barTintColor = UIColor.rgb(r: 230, g: 32, b: 31)
+        
+        // get rid of black bar underneath navBar
+        UINavigationBar.appearance().shadowImage = UIImage()
+        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
+        
+        
+        window?.rootViewController = navController
+        
+        let statusBgView = UIView()
+        statusBgView.backgroundColor = UIColor.rgb(r: 194, g: 31, b: 31)
+        window?.addSubview(statusBgView)
+        window?.addConstraint(with: "H:|[v0]|", views: statusBgView)
+        window?.addConstraint(with: "V:|[v0(20)]", views: statusBgView)
         return true
     }
 
