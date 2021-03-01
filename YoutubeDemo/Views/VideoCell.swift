@@ -13,9 +13,7 @@ class VideoCell: BaseCell {
     var video:  Video? {
         didSet {
             self.titleLabel.text = video?.title
-            self.thumbnailImageView.image = UIImage(named: video?.thumbnailImageName ?? "")
-            
-            self.userProfilerImgView.image = UIImage(named: video?.channel?.profilerImageName ?? "")
+            self.setupImages()
             
             if let channelName = video?.channel?.name, let numberOfViews = video?.numberOfViews {
                 let numberFormatter = NumberFormatter()
@@ -38,7 +36,6 @@ class VideoCell: BaseCell {
     
     let thumbnailImageView: UIImageView = {
         let imgView = UIImageView()
-        imgView.contentMode = .scaleAspectFill
         imgView.clipsToBounds = true
         return imgView
     }()
@@ -51,7 +48,6 @@ class VideoCell: BaseCell {
     
     let userProfilerImgView: UIImageView = {
         let imgView = UIImageView()
-        imgView.contentMode = .scaleAspectFit
         imgView.layer.cornerRadius = 22
         imgView.layer.masksToBounds = true
         return imgView
@@ -101,4 +97,9 @@ class VideoCell: BaseCell {
         self.subtitleTextView.heightAnchor.constraint(equalToConstant: 30).isActive = true
     }
     
+    
+    func setupImages() {
+        self.thumbnailImageView.downloaded(from: video?.thumbnailImageName, contentMode: .scaleAspectFill)
+        self.userProfilerImgView.downloaded(from: video?.channel?.profilerImageName, contentMode: .scaleAspectFill)
+    }
 }
