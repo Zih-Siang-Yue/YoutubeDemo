@@ -15,15 +15,16 @@ class HomeViewController: UICollectionViewController {
         return mb
     }()
     
-    var videos: [Video] = {
-        let kendrickChannel = Channel(name: "KendrickChannel", profilerImageName: "Kendrick")
-        let humbleVideo = Video(thumbnailImageName: "Humble", title: "Kendrick Lamar - HUMBLE", numberOfViews: 769159932, updateDate: nil, channel: kendrickChannel)
-        
-        let zomboyChannel = Channel(name: "ZomboyChannel", profilerImageName: "Zomboy")
-        let yAndDVideo = Video(thumbnailImageName: "Young&Dangerous", title: "Zomboy - Young & Dangerous ft. Kato (PARTY THIEVES & Tre Sera Remix)", numberOfViews: 1911593, updateDate: nil, channel: zomboyChannel)
-        
-        return [humbleVideo, yAndDVideo]
-    }()
+//    var videos: [Video] = {
+//        let kendrickChannel = Channel(name: "KendrickChannel", profilerImageName: "Kendrick")
+//        let humbleVideo = Video(thumbnailImageName: "Humble", title: "Kendrick Lamar - HUMBLE", numberOfViews: 769159932, updateDate: nil, channel: kendrickChannel)
+//
+//        let zomboyChannel = Channel(name: "ZomboyChannel", profilerImageName: "Zomboy")
+//        let yAndDVideo = Video(thumbnailImageName: "Young&Dangerous", title: "Zomboy - Young & Dangerous ft. Kato (PARTY THIEVES & Tre Sera Remix)", numberOfViews: 1911593, updateDate: nil, channel: zomboyChannel)
+//
+//        return [humbleVideo, yAndDVideo]
+//    }()
+    var videos: [Video]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +32,7 @@ class HomeViewController: UICollectionViewController {
         self.setupMenuBar()
         self.setupCollectionView()
         self.setupNavBarButtons()
+        self.fetchVideo()
     }
         
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -70,7 +72,47 @@ class HomeViewController: UICollectionViewController {
         self.navigationItem.rightBarButtonItems = [moreBarButton, searchBarButton]
     }
     
-    
+    private func fetchVideo() {
+        let url = URL(string: "https://s3-us-west-2.amazonaws.com/youtubeassets/home.json")
+        let session = URLSession.shared
+        let task = session.dataTask(with: url!) { (data, response, err) in
+            if err != nil {
+                print("error: \(String(describing: err))")
+                return
+            }
+            
+            do {
+                let json = try JSONSerialization.jsonObject(with: data!, options: .allowFragments)
+                
+                var videoList: [Video] = []
+                for dict in json as! [[String: AnyObject]] {
+                    guard let thumbnailImageName = dict["thumbnail_image_name"] as? String,
+                          let title = dict["title"] as? String,
+                          let numberOfViews = dict["number_of_views"] as? NSNumber,
+                          let channelDict = dict["channel"] as? [String: AnyObject],
+                          let channelName = channelDict["name"] as? String,
+                          let channelProfile = channelDict["profile_image_name"] as? String else {
+                        return
+                    }
+                    
+                    let video = Video(thumbnailImageName: thumbnailImageName , title: title, numberOfViews: numberOfViews, updateDate: Date(), channel: Channel(name: channelName, profilerImageName: channelProfile))
+                    videoList.append(video)
+                }
+                self.videos = videoList
+                
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                }
+                
+            } catch let jsonErr {
+                print("json error: \(jsonErr)")
+            }
+                        
+        }
+        task.resume()
+    }
+
+    //MARK: Action
     @objc func handleSearch() {
         
     }
@@ -82,12 +124,12 @@ class HomeViewController: UICollectionViewController {
 
 extension HomeViewController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return videos.count
+        return videos?.count ?? 0
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! VideoCell
-        cell.video = videos[indexPath.item]
+        cell.video = videos?[indexPath.item]
         return cell
     }
 }
