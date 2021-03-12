@@ -24,6 +24,8 @@
 		F0A2F6D725EBD8720005FB83 /* BaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A2F6D625EBD8720005FB83 /* BaseCell.swift */; };
 		F0A2F6D925EBD88F0005FB83 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A2F6D825EBD88F0005FB83 /* MenuCell.swift */; };
 		F0BECF2425ECCFE8004960D9 /* UIImageView+Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BECF2325ECCFE7004960D9 /* UIImageView+Download.swift */; };
+		F0D4CBCE25F0D5EF007CEC68 /* SettingLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D4CBCD25F0D5EF007CEC68 /* SettingLauncher.swift */; };
+		F0D4CC1725F60B40007CEC68 /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D4CC1625F60B40007CEC68 /* SettingCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +69,8 @@
 		F0A2F6D625EBD8720005FB83 /* BaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCell.swift; sourceTree = "<group>"; };
 		F0A2F6D825EBD88F0005FB83 /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
 		F0BECF2325ECCFE7004960D9 /* UIImageView+Download.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Download.swift"; sourceTree = "<group>"; };
+		F0D4CBCD25F0D5EF007CEC68 /* SettingLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingLauncher.swift; sourceTree = "<group>"; };
+		F0D4CC1625F60B40007CEC68 /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +169,7 @@
 				F0A2F6C525EA4D5C0005FB83 /* VideoCell.swift */,
 				F0A2F6CF25EB6E5F0005FB83 /* MenuBar.swift */,
 				F0A2F6D825EBD88F0005FB83 /* MenuCell.swift */,
+				F0D4CC1625F60B40007CEC68 /* SettingCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -173,6 +178,7 @@
 			isa = PBXGroup;
 			children = (
 				F0A2F69725EA20180005FB83 /* HomeViewController.swift */,
+				F0D4CBCD25F0D5EF007CEC68 /* SettingLauncher.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -326,9 +332,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F0D4CBCE25F0D5EF007CEC68 /* SettingLauncher.swift in Sources */,
 				F0BECF2425ECCFE8004960D9 /* UIImageView+Download.swift in Sources */,
 				F0A2F6C425EA4D370005FB83 /* UIView+Constraint.swift in Sources */,
 				F0A2F6C625EA4D5C0005FB83 /* VideoCell.swift in Sources */,
+				F0D4CC1725F60B40007CEC68 /* SettingCell.swift in Sources */,
 				F0A2F6CD25EB6C2C0005FB83 /* BaseNavigationController.swift in Sources */,
 				F0A2F69825EA20180005FB83 /* HomeViewController.swift in Sources */,
 				F0A2F69625EA20180005FB83 /* AppDelegate.swift in Sources */,

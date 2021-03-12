@@ -31,6 +31,7 @@ class MenuCell: BaseCell {
         addSubview(imgView)
         addConstraint(with: "H:[v0(28)]", views: self.imgView)
         addConstraint(with: "V:[v0(28)]", views: self.imgView)
+        
         self.imgView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         self.imgView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
     }

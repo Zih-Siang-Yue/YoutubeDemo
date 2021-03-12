@@ -34,9 +34,10 @@ class VideoCell: BaseCell {
         }
     }
     
-    let thumbnailImageView: UIImageView = {
-        let imgView = UIImageView()
+    let thumbnailImageView: CustomImageView = {
+        let imgView = CustomImageView()
         imgView.clipsToBounds = true
+        imgView.contentMode = .scaleAspectFill
         return imgView
     }()
     
@@ -46,10 +47,11 @@ class VideoCell: BaseCell {
         return view
     }()
     
-    let userProfilerImgView: UIImageView = {
-        let imgView = UIImageView()
+    let userProfilerImgView: CustomImageView = {
+        let imgView = CustomImageView()
         imgView.layer.cornerRadius = 22
         imgView.layer.masksToBounds = true
+        imgView.contentMode = .scaleAspectFill
         return imgView
     }()
     
@@ -99,7 +101,9 @@ class VideoCell: BaseCell {
     
     
     func setupImages() {
-        self.thumbnailImageView.downloaded(from: video?.thumbnailImageName, contentMode: .scaleAspectFill)
-        self.userProfilerImgView.downloaded(from: video?.channel?.profilerImageName, contentMode: .scaleAspectFill)
+        self.thumbnailImageView.loadImage(by: video?.thumbnailImageName)
+        self.userProfilerImgView.loadImage(by: video?.channel?.profilerImageName)
+//        self.thumbnailImageView.downloaded(from: video?.thumbnailImageName, contentMode: .scaleAspectFill)
+//        self.userProfilerImgView.downloaded(from: video?.channel?.profilerImageName, contentMode: .scaleAspectFill)
     }
 }

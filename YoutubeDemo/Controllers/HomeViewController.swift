@@ -63,7 +63,7 @@ class HomeViewController: UICollectionViewController {
     }
     
     private func setupNavBarButtons() {
-        let searchImage = UIImage(named: "search")?.withRenderingMode(.alwaysOriginal)
+        let searchImage = UIImage(named: "search")?.withRenderingMode(.alwaysOriginal)  //TODO:(Sean) 改變顏色失敗
         let searchBarButton = UIBarButtonItem(image: searchImage, style: .plain, target: self, action: #selector(handleSearch))
         
         let moreImage = UIImage(named: "more")?.withRenderingMode(.alwaysOriginal)
@@ -117,8 +117,20 @@ class HomeViewController: UICollectionViewController {
         
     }
     
+    let settingsLauncher = SettingLauncher()
+    
     @objc func handleMore() {
-        
+        settingsLauncher.showSettings()
+    }
+    
+    //TODO (Sean): call this method after delegate method will be called
+    func presentControllerFor(setting: Setting) {
+        let dummyVC = UIViewController()
+        dummyVC.view.backgroundColor = .white
+        dummyVC.navigationItem.title = setting.name
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white()]
+        navigationController?.navigationBar.tintColor = .white
+        navigationController?.pushViewController(dummyVC, animated: true)
     }
 }
 
