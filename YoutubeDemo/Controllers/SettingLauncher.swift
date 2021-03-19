@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol SettingPresentable {
+protocol SettingPresentable: NSObject {
     func presentSettingVC(with setting: Setting)
 }
 
@@ -117,7 +117,7 @@ extension SettingLauncher: UICollectionViewDelegate, UICollectionViewDataSource,
         } completion: { (completed) in
             let setting = self.settings[indexPath.item]
             if setting.name != "" && setting.name != "Cancel" {
-                //TODO (Sean): pass this setting parameter to delegate(HomeVC)
+                self.delegate?.presentSettingVC(with: setting)
             }
             
         }

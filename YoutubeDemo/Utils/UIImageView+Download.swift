@@ -68,7 +68,7 @@ extension UIImageView {
 //            return
 //        }
 
-
+        //TODO:(Sean) 切換線程
         URLSession.shared.dataTask(with: url) { data, response, error in
             guard
                 let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
@@ -82,6 +82,15 @@ extension UIImageView {
                 self?.image = image
             }
         }.resume()
+    }
+    
+    func simplyDownloaded(from url: URL) {
+        guard let data = try? Data(contentsOf: url) else { return }
+        let image = UIImage(data: data)
+        
+        DispatchQueue.main.async {
+            self.image = image
+        }
     }
     
 }

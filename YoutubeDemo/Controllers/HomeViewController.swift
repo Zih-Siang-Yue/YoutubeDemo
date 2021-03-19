@@ -117,7 +117,11 @@ class HomeViewController: UICollectionViewController {
         
     }
     
-    let settingsLauncher = SettingLauncher()
+    lazy var settingsLauncher: SettingLauncher = {
+        let launcher = SettingLauncher()
+        launcher.delegate = self
+        return launcher
+    }()
     
     @objc func handleMore() {
         settingsLauncher.showSettings()
@@ -125,10 +129,10 @@ class HomeViewController: UICollectionViewController {
     
     //TODO (Sean): call this method after delegate method will be called
     func presentControllerFor(setting: Setting) {
-        let dummyVC = UIViewController()
+        let dummyVC = DummyVC()
         dummyVC.view.backgroundColor = .white
         dummyVC.navigationItem.title = setting.name
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white()]
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         navigationController?.navigationBar.tintColor = .white
         navigationController?.pushViewController(dummyVC, animated: true)
     }
@@ -153,3 +157,12 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+extension HomeViewController: SettingPresentable {
+    func presentSettingVC(with setting: Setting) {
+        self.presentControllerFor(setting: setting)
+    }
+}
+
+class DummyVC: UIViewController {
+    
+}
